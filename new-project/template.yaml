@@ -15,22 +15,13 @@ hooks:
   - type: run
     trigger: before-render
     commands:
-      - npx create-expo-app {{inputs.project_name}} -t expo-template-bare-minimum
-      - mkdir {{inputs.project_name}}/src
-      # - mv {{inputs.project_name}}/App.js {{inputs.project_name}}/src/index.tsx
+      - npx create-expo-app -t expo-template-blank .
+      - mkdir src
   - type: edit
     trigger: after-render
-    path: "{{inputs.project_name}}/index.js"
+    path: App.js
     changes:
       - search:
-        string: "import App from './App';"
+        string: "import { StatusBar } from 'expo-status-bar';"
         replace-by:
-          value: "import App from './src';"
-  - type: edit
-    trigger: after-render
-    path: "{{inputs.project_name}}/ios/{{computed_inputs.appname}}.xcodeproj/project.pbxproj"
-    changes:
-      - search:
-        string: "PRODUCT_BUNDLE_IDENTIFIER = org.name.{{computed_inputs.appname}};"
-        replace-by:
-          value: "PRODUCT_BUNDLE_IDENTIFIER = br.com.mobiletkbrazil.{{computed_inputs.appname}};"
+          value: ""
