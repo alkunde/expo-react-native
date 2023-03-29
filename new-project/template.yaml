@@ -1,0 +1,36 @@
+name: new-project
+description: Template base para um novo projeto
+types:
+  - app-template
+inputs:
+  - label: Project name
+    type: text
+    name: project_name
+    default: project-name
+
+computed-inputs:
+  appname: "novoapp"
+
+hooks:
+  - type: run
+    trigger: before-render
+    commands:
+      - npx create-expo-app {{inputs.project_name}} -t expo-template-bare-minimum
+      - mkdir {{inputs.project_name}}/src
+      # - mv {{inputs.project_name}}/App.js {{inputs.project_name}}/src/index.tsx
+  - type: edit
+    trigger: after-render
+    path: "{{inputs.project_name}}/index.js"
+    changes:
+      - search:
+        string: "import App from './App';"
+        replace-by:
+          value: "import App from './src';"
+  - type: edit
+    trigger: after-render
+    path: "{{inputs.project_name}}/ios/{{computed_inputs.appname}}.xcodeproj/project.pbxproj"
+    changes:
+      - search:
+        string: "PRODUCT_BUNDLE_IDENTIFIER = org.name.{{computed_inputs.appname}};"
+        replace-by:
+          value: "PRODUCT_BUNDLE_IDENTIFIER = br.com.mobiletkbrazil.{{computed_inputs.appname}};"
