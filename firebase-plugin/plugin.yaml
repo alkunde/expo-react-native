@@ -1,0 +1,35 @@
+name: firebase-plugin
+description: Inclusão do Firebase no projeto React Native
+display-name: firebase-plugin
+picture: plugin.png
+category: frontend # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/plugin/#category
+compatibility:
+  - String
+about: docs/about.md
+usage: docs/usage.md
+use-case: docs/use-case.md
+implementation: docs/implementation.md
+technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
+  - "JavaScript"
+  - "React"
+  - "Typescript"
+types:
+  - app
+
+computed-inputs:
+  appname: "novoapp"
+
+hooks:
+  - type: run
+    trigger: before-render
+    commands:
+      - npm install --save @react-native-firebase/app
+      - cd ios && pod install
+  # - type: edit
+  #   trigger: before-render
+  #   path: "/ios/{{computed_inputs.appname}}/AppDelegate.mm"
+  #   changes:
+  #     - search:
+  #       string: '#import "AppDelegate.h"'
+  #       insert-before:
+  #         value: "#import <Firebase.h>"
