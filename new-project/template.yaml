@@ -68,6 +68,7 @@ hooks:
       - mv App.js src/index.js
       - rm package-lock.json
       - rm -R node_modules
+      - yarn remove expo-splash-screen
       - yarn
   - type: edit
     trigger: after-render
