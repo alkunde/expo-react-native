@@ -1,6 +1,6 @@
 description: Stack para criar projetos React Native com o Expo.
 name: expo-react-native
-display-name: expo-react-native
+display-name: Expo React Native
 picture: stack.png
 category: frontend # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/plugin/#category
 compatibility: # Put a list of technologies compatible with the stack

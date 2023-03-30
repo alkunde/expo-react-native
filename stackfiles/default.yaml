@@ -1,9 +1,9 @@
 type: app
-description: Default stackfile usecase description
+description: Default stackfile usecase create hybrid apps with React Native and Expo CLI
 # template used to create the project
-template: expo-react-native/<template-name>
+template: expo-react-native/new-project
 inputs:
-  some_input: value
+  package_name: text
 # list of plugins to be applied after project creation
 plugins:
   - plugin: expo-react-native/<plugin-name>
