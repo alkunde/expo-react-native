@@ -7,9 +7,16 @@ inputs:
     type: text
     name: project_name
     default: project-name
-
-computed-inputs:
-  appname: "novoapp"
+    global: true
+  - label: Package name
+    type: text
+    name: package_name
+    default: br.com.pacote.nomeapp
+    required: true
+  # - label: Use yarn?
+  #   type: bool
+  #   name: use_yarn
+  #   default: true
 
 hooks:
   - type: run
@@ -17,11 +24,56 @@ hooks:
     commands:
       - npx create-expo-app -t expo-template-blank .
       - mkdir src
+      - mkdir src/screens
+      - mkdir src/components
   - type: edit
     trigger: after-render
     path: App.js
     changes:
       - search:
-        string: "import { StatusBar } from 'expo-status-bar';"
-        replace-by:
-          value: ""
+          snippet: snippets/app-content-remove.txt
+          replace-by:
+            snippet: snippets/app-content.txt
+  - type: edit
+    trigger: after-render
+    path: App.js
+    changes:
+      - search:
+          string: <StatusBar style="auto" />
+          replace-by:
+            value: <StatusBar barStyle='dark-content' />
+  - type: edit
+    trigger: after-render
+    path: app.json
+    changes:
+      - search:
+          snippet: snippets/android-content-remove.txt
+          replace-by:
+            snippet: snippets/android-content.txt
+  - type: edit
+    trigger: after-render
+    path: app.json
+    changes:
+      - search:
+          snippet: snippets/ios-content-remove.txt
+          replace-by:
+            snippet: snippets/ios-content.txt
+  - type: run
+    trigger: after-render
+    commands:
+      - npx expo prebuild
+  - type: run
+    trigger: after-render
+    commands:
+      - mv App.js src/index.js
+      - rm package-lock.json
+      - rm -R node_modules
+      - yarn
+  - type: edit
+    trigger: after-render
+    path: index.js
+    changes:
+      - search:
+          string: './App'
+          replace-by:
+            value: './src'

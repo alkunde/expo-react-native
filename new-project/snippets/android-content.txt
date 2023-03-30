@@ -1,0 +1,7 @@
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "{{inputs.package_name}}"
+    },

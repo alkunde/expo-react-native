@@ -1,0 +1,4 @@
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "{{inputs.package_name}}"
+    },
