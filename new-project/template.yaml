@@ -23,9 +23,6 @@ hooks:
     trigger: before-render
     commands:
       - npx create-expo-app -t expo-template-blank .
-      - mkdir src
-      - mkdir src/screens
-      - mkdir src/components
   - type: edit
     trigger: after-render
     path: App.js
@@ -65,11 +62,12 @@ hooks:
   - type: run
     trigger: after-render
     commands:
-      - mv App.js src/index.js
+      - rm App.js
+      - npm uninstall expo-status-bar
       - rm package-lock.json
       - rm -R node_modules
-      - yarn remove expo-splash-screen
       - yarn
+      - yarn add styled-components
   - type: edit
     trigger: after-render
     path: index.js
