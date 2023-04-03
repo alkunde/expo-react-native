@@ -1,6 +1,0 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';

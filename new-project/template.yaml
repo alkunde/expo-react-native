@@ -13,32 +13,14 @@ inputs:
     name: package_name
     default: br.com.pacote.nomeapp
     required: true
-  # - label: Use yarn?
-  #   type: bool
-  #   name: use_yarn
-  #   default: true
 
 hooks:
   - type: run
     trigger: before-render
-    commands:
+    mac:
       - npx create-expo-app -t expo-template-blank .
-  - type: edit
-    trigger: after-render
-    path: App.js
-    changes:
-      - search:
-          snippet: snippets/app-content-remove.txt
-          replace-by:
-            snippet: snippets/app-content.txt
-  - type: edit
-    trigger: after-render
-    path: App.js
-    changes:
-      - search:
-          string: <StatusBar style="auto" />
-          replace-by:
-            value: <StatusBar barStyle='dark-content' />
+    windows:
+      - npx create-expo-app -t expo-template-blank .
   - type: edit
     trigger: after-render
     path: app.json
@@ -47,21 +29,26 @@ hooks:
           snippet: snippets/android-content-remove.txt
           replace-by:
             snippet: snippets/android-content.txt
-  - type: edit
-    trigger: after-render
-    path: app.json
-    changes:
       - search:
           snippet: snippets/ios-content-remove.txt
           replace-by:
             snippet: snippets/ios-content.txt
   - type: run
     trigger: after-render
-    commands:
+    mac:
+      - npx expo prebuild
+    windows:
       - npx expo prebuild
   - type: run
     trigger: after-render
-    commands:
+    mac:
+      - rm App.js
+      - npm uninstall expo-status-bar
+      - rm package-lock.json
+      - rm -R node_modules
+      - yarn
+      - yarn add styled-components
+    windows:
       - rm App.js
       - npm uninstall expo-status-bar
       - rm package-lock.json
