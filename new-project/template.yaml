@@ -20,25 +20,21 @@ hooks:
     mac:
       - npx create-expo-app -t expo-template-blank .
     windows:
-      - npx create-expo-app -t expo-template-blank .
+      - cmd /C npx create-expo-app -t expo-template-blank .
   - type: edit
     trigger: after-render
     path: app.json
     changes:
       - search:
-          snippet: snippets/android-content-remove.txt
+          snippet: snippets/app-content-remove.txt
           replace-by:
-            snippet: snippets/android-content.txt
-      - search:
-          snippet: snippets/ios-content-remove.txt
-          replace-by:
-            snippet: snippets/ios-content.txt
+            snippet: snippets/ap-content.txt
   - type: run
     trigger: after-render
     mac:
       - npx expo prebuild
     windows:
-      - npx expo prebuild
+      - cmd /C npx expo prebuild
   - type: run
     trigger: after-render
     mac:
@@ -49,12 +45,12 @@ hooks:
       - yarn
       - yarn add styled-components
     windows:
-      - rm App.js
-      - npm uninstall expo-status-bar
-      - rm package-lock.json
-      - rm -R node_modules
-      - yarn
-      - yarn add styled-components
+      - cmd /C rm App.js
+      - cmd /C npm uninstall expo-status-bar
+      - cmd /C rm package-lock.json
+      - cmd /C rm -R node_modules
+      - cmd /C yarn
+      - cmd /C yarn add styled-components
   - type: edit
     trigger: after-render
     path: index.js
